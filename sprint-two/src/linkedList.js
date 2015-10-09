@@ -38,25 +38,24 @@ var LinkedList = function(){
   list.contains = function(target){
     // start at head check node.value if true return
     // if not go to node.next and repeat
-    var result = false;
 
     var search = function(node) {
+   
       if ( node.value === target ) {
-        result = true; 
+        return true; 
       } else {
         if ( node.next ) {
-          search( node.next )
+          return search( node.next )
         }
       }
     };
-    
-    search(list.head);
-    return result;   
+
+    return search(list.head) || false;
   };
 
   return list;
 };
-// { value: 'something', next: { value: 'somethingElse', next: { } } }
+
 var Node = function(value){
   var node = {};
 
