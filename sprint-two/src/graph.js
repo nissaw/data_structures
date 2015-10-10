@@ -32,17 +32,17 @@ Graph.prototype.contains = function(value){
 // ------------------------
 // Removes a node from the graph.
 Graph.prototype.removeNode = function(node){
-  var removed;
+ // var removed;
   var index;
   _.each(this.nodes, function(item, i) {
     if ( item.value === node ) {
-      removed = node; 
+     // removed = node; 
       index = i;
     }
   })
   this.nodes.splice(index, 1)[0];
 
-  return removed;
+  return node; //removed;
 };
 
 // ------------------------
