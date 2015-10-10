@@ -4,36 +4,13 @@
 
 // Instantiate a new graph
 var Graph = function (){
-  //var currentID = 0;
   this.nodes = [];
   };
-  /*
-  // given 'kitten', how would we add {} into 'dog''s connections
-  find the index of the node where value = dog, find value = kitten
-  index.connections.push(node)
-  this.nodes[index].connections[i].value = 'kitten'
-  { value:'kitten', connections: [] }, 
-  { value:'dog',    connections: [] }, 
-  { value:'panda',  connections: [] }, 
-  ];
-  */
-
 
 var RickRoll = function(value) {
   this.value = value,
   this.connections = [];
-  //this.id;
 }
-// var myGraph = new Graph();
-// var kittens  = new Node('somevalue');
-  // myNode should look like--
-  /* 
-  { value: 'somevalue',
-    connections: ['kitten'],
-    id: 0,
-  }
-  */
-// myGraph.addNode(myNode);
 
 // Add a node to the graph, passing in the node's value.
 Graph.prototype.addNode = function(value) { 
@@ -42,7 +19,7 @@ Graph.prototype.addNode = function(value) {
 
 // ------------------------
 // Return a boolean value indicating if the value passed to contains is represented in the graph.
-Graph.prototype.contains = function(value){ // node should be a value
+Graph.prototype.contains = function(value){ 
   var doesContain = false;
   _.each(this.nodes, function(item) {
     if ( item.value === value ) { 
@@ -103,16 +80,6 @@ Graph.prototype.addEdge = function(fromNode, toNode){
 
 // ------------------------
 // Remove an edge between any two specified (by value) nodes.
-
-/*
-this.nodes = [
-  { value:'kitten', connections: [ { value:'dog', connections: [] } ] }, 
-  { value:'dog',    connections: [ { value:'kitten', connections: [] }] }, 
-  { value:'panda',  connections: [] }, 
-];
-
-{ value:'dog', connections: [ {}, {}, {} ] }
-  */
 Graph.prototype.removeEdge = function(fromNode, toNode){
   _.each(this.nodes, function(item) {
     if (item.value === fromNode) {
@@ -135,6 +102,9 @@ Graph.prototype.removeEdge = function(fromNode, toNode){
 // ------------------------
 // Pass in a callback which will be executed on each node of the graph.
 Graph.prototype.forEachNode = function(cb){
+  _.each(this.nodes, function(item) {
+      cb(item.value);
+  });
 };
 
 /*
