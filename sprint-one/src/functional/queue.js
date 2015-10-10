@@ -42,5 +42,3 @@ var Queue = function(){
 
   return someInstance;
 };
-
-

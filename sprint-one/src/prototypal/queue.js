@@ -38,5 +38,3 @@ var queueMethods = {
     return this.queueSize;
   }
 };
-
-

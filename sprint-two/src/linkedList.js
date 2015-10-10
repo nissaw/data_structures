@@ -7,8 +7,9 @@ var LinkedList = function(){
     // first pass check if head is null 
     if ( list.head === null ) {
        //if yes add value to head
-      list.head = Node(value);
-      list.tail = list.head;
+      list.tail = Node(value);
+      list.head = list.tail;
+      //list.head.next = list.tail; // added
     } else if ( list.tail === list.head ) {
       // if yes alter head and add tail
       var newNode = Node( value )
@@ -16,7 +17,7 @@ var LinkedList = function(){
       list.head.next = newNode;
     } else {
        // third pass alter tail only
-      var newNode = Node(value);
+      var newNode = Node( value );
       list.tail.next = newNode;
       list.tail = newNode;
     }

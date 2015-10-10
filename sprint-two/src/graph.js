@@ -6,9 +6,20 @@
 var Graph = function (){
   //var currentID = 0;
   this.nodes = [];
-};
+  };
+  /*
+  // given 'kitten', how would we add {} into 'dog''s connections
+  find the index of the node where value = dog, find value = kitten
+  index.connections.push(node)
+  this.nodes[index].connections[i].value = 'kitten'
+  { value:'kitten', connections: [] }, 
+  { value:'dog',    connections: [] }, 
+  { value:'panda',  connections: [] }, 
+  ];
+  */
 
-var Node = function(value) {
+
+var RickRoll = function(value) {
   this.value = value,
   this.connections = [];
   //this.id;
@@ -18,23 +29,23 @@ var Node = function(value) {
   // myNode should look like--
   /* 
   { value: 'somevalue',
-    connections: [],
+    connections: ['kitten'],
     id: 0,
   }
   */
 // myGraph.addNode(myNode);
 
 // Add a node to the graph, passing in the node's value.
-Graph.prototype.addNode = function(node){
-  this.nodes.push(node);
+Graph.prototype.addNode = function(value) { 
+  this.nodes.push(new RickRoll(value));
 };
 
 // ------------------------
 // Return a boolean value indicating if the value passed to contains is represented in the graph.
-Graph.prototype.contains = function(node){
+Graph.prototype.contains = function(value){ // node should be a value
   var doesContain = false;
   _.each(this.nodes, function(item) {
-    if ( item === node ) { // item.value?
+    if ( item.value === value ) { 
       doesContain = true;
     }
   });
@@ -47,8 +58,8 @@ Graph.prototype.removeNode = function(node){
   var removed;
   var index;
   _.each(this.nodes, function(item, i) {
-    if ( item === node ) {
-      removed = node 
+    if ( item.value === node ) {
+      removed = node; 
       index = i;
     }
   })
@@ -60,16 +71,65 @@ Graph.prototype.removeNode = function(node){
 // ------------------------
 // Returns a boolean indicating whether two specified nodes are connected.  Pass in the values contained in each of the two nodes.
 Graph.prototype.hasEdge = function(fromNode, toNode){
+  var result = false;
+  _.each(this.nodes, function(item) {
+    if ( item.value === fromNode ) {
+      _.each(item.connections, function(node){
+        if (node.value === toNode) {
+          result = true;
+        }
+      })
+    }
+  })
+  return result;
 };
 
 // ------------------------
 // Connects two nodes in a graph by adding an edge between them.
 Graph.prototype.addEdge = function(fromNode, toNode){
+  var fromIndex;
+  var toIndex;
+   _.each(this.nodes, function(item, i) {
+    if ( item.value === fromNode ) { 
+      fromIndex = i;  
+    } 
+    if ( item.value === toNode ) {
+      toIndex = i;
+    }
+  })
+   this.nodes[fromIndex].connections.push(this.nodes[toIndex]);
+   this.nodes[toIndex].connections.push(this.nodes[fromIndex]);
 };
 
 // ------------------------
 // Remove an edge between any two specified (by value) nodes.
+
+/*
+this.nodes = [
+  { value:'kitten', connections: [ { value:'dog', connections: [] } ] }, 
+  { value:'dog',    connections: [ { value:'kitten', connections: [] }] }, 
+  { value:'panda',  connections: [] }, 
+];
+
+{ value:'dog', connections: [ {}, {}, {} ] }
+  */
 Graph.prototype.removeEdge = function(fromNode, toNode){
+  _.each(this.nodes, function(item) {
+    if (item.value === fromNode) {
+      _.each(item.connections, function(node, index) {
+        if (node.value === toNode) {
+          item.connections.splice(index, 1);
+        }
+      });
+
+    } else if (item.value === toNode) {
+      _.each(item.connections, function(node, index) {
+        if (node.value === fromNode) {
+          item.connections.splice(index, 1);
+        }
+      });
+    }
+  });
 };
 
 // ------------------------
